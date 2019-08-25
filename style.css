@@ -1,0 +1,121 @@
+body{
+	margin: 5px;
+	padding: 0;
+	user-select: none;
+	background-color: #F5FFFD;
+	color: #424;
+}
+
+.global-grid-container{
+	justify-content: space-around;
+	display: grid;
+	grid-template-columns: 44% 10% 44%;
+	grid-gap: 10px;
+}
+
+.global-grid-container > div{
+	background-color: rgb(240,248,255);
+	transition: all 1s ease-out;
+}
+
+.block{
+	border: 1px dashed darkblue;
+	height: calc(100vh - 1em);
+	transition: all 1s ease-out;
+}
+
+#left{
+	background-color: #82D1D1;
+}
+
+#right{
+	overflow: auto;
+	background-color:#E0FFFA;
+}
+
+#middle{
+	overflow: hidden;
+}
+
+#right > p{
+	font-size: 25px;
+	padding: 25px;
+	transition: all .3s ease-out;
+	margin-top: 0;
+}
+
+#right > p:hover{
+	color: black;
+	background: rgba(255, 255, 255);
+}
+
+.buttons-container{
+	display: grid;
+	grid-template-columns: auto;
+}
+
+.buttons-container > div{
+	width: 100%;
+	background-color: #C5FFFF;
+	text-align: center;
+	font-size: 25px;
+	padding: 10px 0;
+	transition: all .1s ease-out;
+}
+
+#turns{
+	display: none;
+	background-color: rgb(240,248,255);
+}
+
+#play{
+	background-color: #64DF85;
+}
+
+#surrender{
+	background-color: #FF8373;
+	display: none;
+}
+
+.buttons-container > div:hover{
+	background-color: white;
+}
+
+.grid-container{
+	display: grid;
+	grid-template-columns: auto auto auto;
+	grid-gap: 10px 20px;
+	padding: 20px;
+}
+
+.grid-container > div{
+	background-color: #C5FFFF;
+	text-align: center;
+	padding: 20px 0;
+	font-size: 30px;
+	transform: scale(1);
+	transition: all .1s ease-out;
+}
+
+.f{
+	grid-template-columns: auto auto auto auto;
+	height: 74px;
+	transition: all .5s ease-out;
+}
+
+.f > div:hover{
+	transform: scale(1.1);
+}
+
+.n{
+	padding-top: 50px;
+}
+
+.n > div:hover{
+	transform: scale(1.12);
+	background: white;
+}
+
+#lastp{
+	background-color: #C2F2F2;
+}

@@ -251,6 +251,13 @@ body {
 
     .buttons-container {
         display: flex;
+        height: 100%;
+    }
+
+    .buttons-container div {
+        display: flex;
+        align-items: center;
+        justify-content: space-around;
     }
 
     #left > p:active {

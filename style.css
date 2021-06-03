@@ -139,6 +139,7 @@ body {
     opacity: 0;
     transition: 0.5s;
     transform: rotate(35deg);
+    user-select: none;
 }
 
 .n > div.questionable {

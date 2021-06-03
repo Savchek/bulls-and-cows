@@ -285,7 +285,7 @@ wrt = (text, className) => {
 }
 
 info = () => {
-	wrt('v1.3')
+	wrt('v1.3.1')
 	wrt('<a target="_blank" href="https://github.com/Savchek/bulls-and-cows/blob/master/LICENSE">Ліцензія MIT</a>')
 	wrt('Розробив студент Університету імені Івана Франка Савченко Данило')
 	wrt('Загальна інформація:')
@@ -369,7 +369,6 @@ document.querySelectorAll('.n > div').forEach(numBtn => {
 
 document.body.addEventListener('mouseup', (event) => {
 	clearTimeout(pressTimer)
-	setTimeout(pl.focus, 100)
 
 	if(event.button != 0 || (mouseTarget && mouseTarget != event.target)) {
 		mouseTarget = undefined

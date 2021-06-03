@@ -1,9 +1,9 @@
+let pressTimer
+let mouseTarget
+let wasLongPressed = false
 let data = []
 let plan=[]
 let sNum = []
-
-let greenC = '#64DF85'
-let redC = '#FF8373'
 
 let game = false
 let planning = false
@@ -40,6 +40,8 @@ start = () => {
 	wrt('Придумайте та введіть ваше число')
 	document.getElementById('left').scrollTop = -999
 	planning = true
+
+	document.querySelectorAll('.n > div').forEach(e => e.classList = '')
 }
 
 reset = (lose) => {
@@ -56,8 +58,7 @@ reset = (lose) => {
 	turn = 1
 
 	if (lose){
-		wrt('Ви здалися😢 Число суперника: ' + sNum.join(''))
-		document.getElementById('lastp').style.backgroundColor = redC
+		wrt('Ви здалися😢 Число суперника: ' + sNum.join(''), 'red')
 	}
 
 	for (let i = 0; i < 4; i++){
@@ -70,9 +71,12 @@ reset = (lose) => {
 	sNum = []
 }
 
-blink = (el, color, regularColor = '#C5FFFF', time = 200) => {
-	el.style.background = color
-	setTimeout(() => el.style.background = regularColor, time)
+blink = (el, color, time = 200) => {
+	if (!el.classList.contains(color)) {
+		el.classList.add(color)
+	}
+
+	setTimeout(() => el.classList.remove(color), time)
 }
 
 blinkTopNum = (color, onlyEmpty) => {
@@ -88,6 +92,10 @@ blinkTopNum = (color, onlyEmpty) => {
 }
 
 addNum = num => {
+	if (wasLongPressed) {
+		return
+	}
+
 	if(game){
 		let len = data.length
 
@@ -97,20 +105,20 @@ addNum = num => {
 
 				if(!data[i] && !(data.indexOf(num) != -1) && data[i] != 0) {
 					data[i] = el.innerHTML = num
-					blink(el, greenC)
+					blink(el, 'green')
 
 					break
 				} else if(len == 4) {
-					blink(document.getElementById('go'), greenC)
-					blinkTopNum(greenC)
+					blink(document.getElementById('go'), 'green')
+					blinkTopNum('green')
 
 					break
 				} else if(el.innerHTML == num && el.innerHTML!='') {
-					blink(el, redC)
-					blink(document.getElementById('np'+num), redC)
+					blink(el, 'red')
+					blink(document.getElementById('np'+num), 'red')
 				}
 			}
-		} else if(num === -1) {
+		} else if(num == -1) {
 			if (len) {
 				let deletedElement = document.getElementById('d' + data.indexOf( data[len-1] ) )
 
@@ -118,13 +126,13 @@ addNum = num => {
 				blink(deletedElement, 'white')
 				data.pop()
 			} else {
-				blinkTopNum(redC)
-				blink(document.getElementById('del'), redC)
+				blinkTopNum('red')
+				blink(document.getElementById('del'), 'red')
 			}
-		} else if(num === -2) {
+		} else if(num == -2) {
 			if (len < 4) {
-				blinkTopNum(redC, true)
-				blink(document.getElementById('go'), redC)
+				blinkTopNum('red', true)
+				blink(document.getElementById('go'), 'red')
 
 				return
 			}
@@ -142,14 +150,14 @@ addNum = num => {
 				}
 
 				wrt('Суперник також загадав число')
-				wrt('🚩Гра почалася🚩')
-				blinkTopNum(greenC)
+				wrt('🚩Гра почалася🚩', 'text-center')
+				blinkTopNum('green')
 			} else {
 				compare()
 			}
 		}
 	} else {
-		blink(document.getElementById('play'), redC, greenC)
+		blink(document.getElementById('play'), 'red')
 	}
 }
 
@@ -161,23 +169,22 @@ compare = () => {
 	tr.innerHTML = 'Хід #' + (++turn)
 
 	if(bulls == 4) {
-		wrt('Ви виграли🎉 Число суперника: ' + sNum.join('') + ', Хід #' + (--turn))
-		document.getElementById('lastp').style.backgroundColor = greenC
+		wrt('Ви виграли🎉 Число суперника: ' + sNum.join('') + ', Хід #' + (--turn), 'green')
+		showConfetti(5)
 		reset()
-		blinkTopNum(greenC)
+		blinkTopNum('green')
 	} else if (bulls >= 0 && bulls < 4 && cows >= 0 && cows <= 4) {
 		let botRes = choseAnswer()
 
 		if (botRes.bulls == 4){
-			wrt('🤖Cуперник виграв! Ваше число: ' + botRes.num.join('') + ', Число суперника: ' + sNum.join('') + ', Хід #' + (--turn))
-			document.getElementById('lastp').style.backgroundColor = redC
+			wrt('🤖Cуперник виграв! Ваше число: ' + botRes.num.join('') + ', Число суперника: ' + sNum.join('') + ', Хід #' + (--turn), 'red')
 			reset()
 		} else {
 			let bguessed = getVisGuess(botRes.bulls, botRes.cows)
 			let pguessed = getVisGuess(playerres.bulls, playerres.cows)
 
 			wrt('🤖Спроба суперника: ' + botRes.num.join('') + ' ' + bguessed)
-			wrt('🤔️Ваша спроба: ' + data.join('') + ' ' + pguessed)
+			wrt('🤔️Ваша спроба: ' + data.join('') + ' ' + pguessed, 'user-output')
 		}
 
 		data = []
@@ -262,11 +269,12 @@ test = (a, d, b) => {
 
 getNum = a => z.length && a.length > 10 ? z.splice(0, 4) : a[Math.floor(Math.random() * a.length)]
 
-wrt = text => {
+wrt = (text, className) => {
 	let a = document.getElementById('left')
 	let b = document.getElementById('lastp')
 	let neq = document.createElement('p')
 
+	neq.classList.add(className)
 	neq.style.marginTop = '-104px'
 	neq.innerHTML = text
 	a.insertBefore(neq, b)
@@ -281,3 +289,96 @@ info = () => {
 	wrt('Розробив студент Університету імені Івана Франка Савченко Данило')
 	wrt('Загальна інформація: ')
 }
+
+markNumber = (event) => {
+	event.preventDefault()
+
+	const target = event.target
+
+	if (turn <= 1 ||
+		(target.dataset.num && target.dataset.num < 0)) {
+		return
+	}
+
+	if (target.classList.contains('questionable')) {
+		target.classList.remove('questionable')
+		target.classList.add('ok')
+	} else if (target.classList.contains('ok')) {
+		target.classList.remove('ok')
+		target.classList.add('rejected')
+	} else if (target.classList.contains('rejected')) {
+		target.classList.remove('rejected')
+	} else {
+		target.classList.add('questionable')
+	}
+}
+
+showConfetti = (duration) => {
+	var duration = duration * 1000;
+	var animationEnd = Date.now() + duration;
+	var skew = 1;
+	var colors = ['#bb0000', '#ffffff', '#bada55', '#ff00ff']
+
+	function randomInRange(min, max) {
+		return Math.random() * (max - min) + min;
+	}
+
+	(function frame() {
+		var timeLeft = animationEnd - Date.now();
+		var ticks = Math.max(200, 500 * (timeLeft / duration));
+		skew = Math.max(0.8, skew - 0.001);
+
+		confetti({
+			particleCount: 4,
+			// startVelocity: 0,
+			ticks: ticks,
+			colors: colors,
+			origin: {
+				x: Math.random(),
+				y: Math.random()
+				// y: (Math.random() * skew) - 0.2
+			},
+			gravity: randomInRange(0.4, 0.6),
+			scalar: randomInRange(0.4, 1),
+			drift: randomInRange(-0.4, 0.4)
+		});
+
+		if (timeLeft > 0) {
+			requestAnimationFrame(frame);
+		}
+	}());
+}
+
+document.querySelectorAll('.n > div').forEach(numBtn => {
+	numBtn.addEventListener('contextmenu', markNumber)
+
+	numBtn.addEventListener('mousedown', (event) => {
+		if(event.button != 0) {
+			return
+		}
+	
+		mouseTarget = event.target
+		
+		pressTimer = setTimeout(() => {
+			markNumber(event)
+			wasLongPressed = true
+		}, 500)
+	})
+})
+
+document.body.addEventListener('mouseup', (event) => {
+	clearTimeout(pressTimer)
+
+	if(event.button != 0 || (mouseTarget && mouseTarget != event.target)) {
+		mouseTarget = undefined
+		return
+	}
+
+	mouseTarget = undefined
+	
+	if (event.target.dataset.num != undefined) {
+		addNum(event.target.dataset.num)
+	}
+
+	wasLongPressed = false
+})

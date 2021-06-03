@@ -4,6 +4,7 @@
 <head>
 	<meta charset="UTF-8">
 	<title>Бики та корови</title>
+	<meta name="viewport" content="width=device-width,initial-scale=1.0">
 	<link rel="stylesheet" href="style.css">
 	<link rel="shortcut icon" href="https://cdn1.iconfinder.com/data/icons/animals-2/320/Bull-2-256.png">
 </head>
@@ -23,6 +24,7 @@
 			<p>Ви отримуєте відповідь: [🐂][🐄🐄] ("Биком" є число <b>2</b>, "коровами" є числа <b>4</b> і <b>1</b>)</p>
 			<p>Виграє той, хто першим отримуєте відповідь [🐂🐂🐂🐂][➖], тобто вгадує всі числа суперника у правильному
 				порядку</p>
+			<p>Також можна помічати цифри правою кнопкою миші (або довгим затисканням) починаючи з 2 ходу</p>
 		</div>
 		<div class="block" id="middle">
 			<div class="buttons-container">
@@ -40,21 +42,22 @@
 				<div id="d3"></div>
 			</div>
 			<div class="grid-container n">
-				<div onclick="addNum(1)" id="np1">1</div>
-				<div onclick="addNum(2)" id="np2">2</div>
-				<div onclick="addNum(3)" id="np3">3</div>
-				<div onclick="addNum(4)" id="np4">4</div>
-				<div onclick="addNum(5)" id="np5">5</div>
-				<div onclick="addNum(6)" id="np6">6</div>
-				<div onclick="addNum(7)" id="np7">7</div>
-				<div onclick="addNum(8)" id="np8">8</div>
-				<div onclick="addNum(9)" id="np9">9</div>
-				<div onclick="addNum(-1)" id="del">❌</div>
-				<div onclick="addNum(0)" id="np0">0</div>
-				<div onclick="addNum(-2)" id="go">✔️</div>
+				<div data-num="1" id="np1">1</div>
+				<div data-num="2" id="np2">2</div>
+				<div data-num="3" id="np3">3</div>
+				<div data-num="4" id="np4">4</div>
+				<div data-num="5" id="np5">5</div>
+				<div data-num="6" id="np6">6</div>
+				<div data-num="7" id="np7">7</div>
+				<div data-num="8" id="np8">8</div>
+				<div data-num="9" id="np9">9</div>
+				<div data-num="-1" id="del">❌</div>
+				<div data-num="0" id="np0">0</div>
+				<div data-num="-2" id="go">✔️</div>
 			</div>
 		</div>
 	</div>
+	<script src="https://cdn.jsdelivr.net/npm/canvas-confetti@1.4.0/dist/confetti.browser.min.js"></script>
 	<script src="script.js"></script>
 </body>
 

@@ -8,6 +8,26 @@ body {
     user-select: none;
 }
 
+.green {
+    background: #64df85!important;
+}
+
+.red {
+    background: #ff8373!important;
+}
+
+.white {
+    background: white!important;
+}
+
+.user-output {
+    background: rgb(123, 207, 255)!important;
+}
+
+.text-center {
+    text-align: center;
+}
+
 .global-grid-container {
     display: grid;
     justify-content: space-around;
@@ -48,8 +68,12 @@ body {
 }
 
 #left > p:hover {
-    background: rgba(255, 255, 255);
+    background: rgba(255, 255, 255)!important;
     color: black;
+}
+
+#left > p.user-output:hover {
+    background: rgb(64, 161, 218)!important;
 }
 
 .buttons-container {
@@ -116,6 +140,7 @@ body {
 }
 
 .n {
+    overflow: hidden;
     padding-top: 50px;
 }
 
@@ -123,9 +148,65 @@ body {
     cursor: pointer;
 }
 
+.n > div:after {
+    content: '';
+    position: absolute;
+    top: -10px;
+    right: -10px;
+    opacity: 0;
+    transition: 0.5s;
+    transform: rotate(35deg);
+}
+
+.n > div.questionable {
+    position: relative;
+    background: rgb(255, 223, 80);
+}
+
+.n > div.questionable:after {
+    content: '❓';
+    top: 0;
+    right: 0;
+    opacity: 1;
+}
+
+.n > div.rejected {
+    background: tomato;
+}
+
+.n > div.rejected:after {
+    content: '⛔';
+    top: 0;
+    right: 0;
+    opacity: 1;
+}
+
+.n > div.ok {
+    background: rgb(138, 255, 71);
+}
+
+.n > div.ok:after {
+    content: '👌';
+    top: 0;
+    right: 0;
+    opacity: 1;
+}
+
 .n > div:hover {
     background: white;
     transform: scale(1.12);
+}
+
+.n > div.questionable:hover {
+    background: rgb(255, 229, 115);
+}
+
+.n > div.rejected:hover {
+    background: rgb(255, 139, 118);
+}
+
+.n > div.ok:hover {
+    background: rgb(172, 255, 124);
 }
 
 #lastp {
@@ -137,13 +218,13 @@ body {
     color: white;
 }
 
-@media (max-width: 1024px) {
+@media screen and (max-width: 1024px) {
     body {
         font-size: 20px;
     }
 }
 
-@media (max-width: 767px) {
+@media screen and (max-width: 767px) {
     body {
         overflow: hidden;
         font-size: 18px;

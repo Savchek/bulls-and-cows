@@ -368,6 +368,7 @@ document.querySelectorAll('.n > div').forEach(numBtn => {
 
 document.body.addEventListener('mouseup', (event) => {
 	clearTimeout(pressTimer)
+	setTimeout(pl.focus, 100)
 
 	if(event.button != 0 || (mouseTarget && mouseTarget != event.target)) {
 		mouseTarget = undefined

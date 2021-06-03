@@ -49,7 +49,7 @@ reset = (lose) => {
 
 	setTimeout(() => {
 		tr.style.display = sr.style.display = 'none'
-		pl.style.display = 'block'
+		pl.style.display = 'flex'
 		pl.style.marginTop = '0'
 		tr.innerHTML = 'Хід #1'
 	}, 200)
@@ -141,7 +141,7 @@ addNum = num => {
 				plan = [...data]
 				data = []
 				planning = false
-				sr.style.display = tr.style.display = 'block'
+				sr.style.display = tr.style.display = 'flex'
 				tr.style.marginTop = '-130px'
 				setTimeout(() => tr.style.marginTop = '0', 200)
 

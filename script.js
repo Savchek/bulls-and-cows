@@ -285,7 +285,6 @@ wrt = (text, className) => {
 }
 
 info = () => {
-	wrt('v1.3.1')
 	wrt('<a target="_blank" href="https://github.com/Savchek/bulls-and-cows/blob/master/LICENSE">Ліцензія MIT</a>')
 	wrt('Розробив студент Університету імені Івана Франка Савченко Данило')
 	wrt('Загальна інформація:')
